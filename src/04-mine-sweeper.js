@@ -21,8 +21,58 @@
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new Error('Not implemented');
+function minesweeper(matrix) {
+  const res = [];
+  for (let i = 0; i < matrix.length; i++) {
+    res[i] = matrix[i].slice();
+  }
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      res[i][j] = 0;
+    }
+  }
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      if (matrix[i][j]) {
+        if (i - 1 >= 0 && j - 1 >= 0) {
+          if (res[i - 1][j - 1] !== undefined) {
+            res[i - 1][j - 1] += 1;
+          }
+          if (res[i - 1][j] !== undefined) {
+            res[i - 1][j] += 1;
+          }
+          if (res[i - 1][j + 1] !== undefined) {
+            res[i - 1][j + 1] += 1;
+          }
+        }
+        if (j - 1 >= 0) {
+          if (res[i + 1][j - 1] !== undefined) {
+            res[i + 1][j - 1] += 1;
+          }
+          if (res[i][j - 1] !== undefined) {
+            res[i][j - 1] += 1;
+          }
+        }
+        if (res[i][j + 1] !== undefined) {
+          res[i][j + 1] += 1;
+        }
+        if (res[i + 1][j + 1] !== undefined) {
+          res[i + 1][j + 1] += 1;
+        }
+        if (res[i + 1][j] !== undefined) {
+          res[i + 1][j] += 1;
+        }
+      }
+    }
+  }
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      if (matrix[i][j]) {
+        res[i][j] = 1;
+      }
+    }
+  }
+  return res;
 }
 
 module.exports = minesweeper;
